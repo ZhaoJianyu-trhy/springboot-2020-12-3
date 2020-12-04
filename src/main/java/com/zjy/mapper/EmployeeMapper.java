@@ -41,8 +41,9 @@ public class EmployeeMapper {
     }
 
     public int addEmployee(Employee employee) {
-        employee.setId(primaryId++);
+        if (employee.getId() == null) employee.setId(primaryId++);
         employee.setDepartment(departmentMapper.getDepartmentById(employee.getDepartment().getId()));
+        System.out.println("添加了~~" + employee);
         employees.put(employee.getId(), employee);
         return 1;
     }
@@ -58,5 +59,10 @@ public class EmployeeMapper {
     @Test
     public void testDate() {
         System.out.println(getEmployeeById(1));
+    }
+
+    @Test
+    public void allEmps() {
+        System.out.println(selectEmployees());
     }
 }
