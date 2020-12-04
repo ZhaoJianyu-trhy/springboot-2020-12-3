@@ -18,7 +18,7 @@ public class DepartmentMapper {
         departments = new HashMap<>();
         departments.put(101, new Department(101, "开发部"));
         departments.put(102, new Department(102, "测试部"));
-        departments.put(103, new Department(103, "运营部"));
+        departments.put(103, new Department(103, "运维部"));
         departments.put(104, new Department(104, "销售部"));
         departments.put(105, new Department(105, "行政部"));
     }
