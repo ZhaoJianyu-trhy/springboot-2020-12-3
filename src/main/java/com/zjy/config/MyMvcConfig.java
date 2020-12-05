@@ -14,6 +14,11 @@ import java.util.Locale;
 @Configuration
 public class MyMvcConfig implements WebMvcConfigurer {
 
+    /**
+     * 用于添加登录页面和首页的路径映射，避免了新写一个Controller
+     * 这也是SpringMVC中传统的设置路径映射的方式，即一个类实现Handler接口
+     * @param registry
+     */
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
         registry.addViewController("/").setViewName("index");
@@ -21,11 +26,21 @@ public class MyMvcConfig implements WebMvcConfigurer {
         registry.addViewController("/main.html").setViewName("dashboard");
     }
 
+    /**
+     * 将自己编写的国际化类注册到配置中 MyLocaleResolver.java
+     * @return
+     */
     @Bean
     public LocaleResolver localeResolver() {
         return new MyLocaleResolver();
     }
 
+    /**
+     * 添加拦截器
+     * addPathPatterns("/**") 拦截了所有请求
+     * 但是同时放行了ArrayList中的请求
+     * @param registry
+     */
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(new LoginHandlerInterceptor()).addPathPatterns("/**").excludePathPatterns(new ArrayList<String>() {{
